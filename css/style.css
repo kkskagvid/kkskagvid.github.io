@@ -1,15 +1,9 @@
 
 body {
-    background-image: url("../img/1169319.jpg");
     background-position: right bottom, left top;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-}
 
-/* 字体设定 */
-.fs {
-    color: rgb(0,0,0);
-    margin-top: 100px;
-    margin-left: 100px;
+    font-size: 20px;
 }
