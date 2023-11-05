@@ -3,7 +3,9 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
+}
 
+.t {
     font-size: 20px;
-    color: #39c5bb;
+    color: rgb(0, 0, 0);
 }
