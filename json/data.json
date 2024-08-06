@@ -10,5 +10,17 @@
         "path": "default",
         "size": "13.8 MB",
         "lastModified": "2021-07-10"
-    }   
+    },
+    {
+        "name": "Live2DPet.zip",
+        "path": "https://github.com/kkskagvid/kkskagvid.github.io/releases/download/pre/Live2DPet.zip",
+        "size": "27.2 MB",
+        "lastModified": "2024-08-06"
+    },
+    {
+        "name": "Dream Weaver.apk",
+        "path": "https://github.com/kkskagvid/kkskagvid.github.io/releases/download/pre/Dream.Weaver.apk",
+        "size": "20.9 MB",
+        "lastModified": "2023-08-01"
+    }
 ]
