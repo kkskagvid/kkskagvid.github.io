@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/background.jpg'); /* 添加背景图片 */
+    background-size: cover; /* 调整图片以覆盖整个背景 */
+    background-position: center center; /* 图片居中显示 */
+    background-repeat: no-repeat; /* 图片不重复 */
+    background-attachment: fixed; /* 图片固定在背景上 */
+    color: white; /* 设置文本颜色为白色 */
+}
+
+header {
+    color: white;
+    display: flex;
+    justify-content: flex-end; /* 文字靠右对齐 */
+    align-items: center;
+    padding: 20px 50px; /* 添加内边距 */
+    position: relative; /* 使内部元素可以相对于header定位 */
+}
+
+.header-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* 使列表项水平排列 */
+    transform: translateX(-50%) translateY(15px); /* 向左移动中点的二分之一位置，并向下移动15px */
+}
+
+.header-nav li {
+    margin-left: 10px; /* 增加列表项之间的空隙 */
+}
+
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.header-nav a:hover {
+    background-color: #555;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #33333300;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}

@@ -1,12 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('.header-nav a');
-    
-    // 为每个链接添加点击事件
-    links.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault(); // 阻止默认行为
-            const newTitle = this.getAttribute('data-title'); // 获取data-title属性值
-            document.title = newTitle; // 更改文档标题
+    const tableBody = document.querySelector('table tbody');
+
+    fetch('/files.json') // 确保路径正确
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(file => {
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                const sizeCell = document.createElement('td');
+                const lastModifiedCell = document.createElement('td');
+
+                nameCell.innerHTML = `<a href="/downloads/${file.name}" download>${file.name}</a>`;
+                sizeCell.textContent = file.size;
+                lastModifiedCell.textContent = file.lastModified;
+
+                row.appendChild(nameCell);
+                row.appendChild(sizeCell);
+                row.appendChild(lastModifiedCell);
+
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing files:', error);
+            // 可选：向用户显示错误消息
+            alert('无法加载文件列表，请稍后再试。');
         });
-    });
 });

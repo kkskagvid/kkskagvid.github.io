@@ -1,0 +1,32 @@
+[
+    {
+        "name": "software1.zip",
+        "size": "5 MB",
+        "lastModified": "2024-08-01"
+    },
+    {
+        "name": "software2.zip",
+        "size": "3 MB",
+        "lastModified": "2024-07-30"
+    },
+    {
+        "name": "VeryLongFileNameDocument1.pdf",
+        "size": "2 MB",
+        "lastModified": "2024-07-28"
+    },
+    {
+        "name": "document2.pdf",
+        "size": "1 MB",
+        "lastModified": "2024-07-25"
+    },
+    {
+        "name": "other1.txt",
+        "size": "500 KB",
+        "lastModified": "2024-07-20"
+    },
+    {
+        "name": "other2.txt",
+        "size": "250 KB",
+        "lastModified": "2024-07-15"
+    }
+]
