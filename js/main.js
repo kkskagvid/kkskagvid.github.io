@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const sizeCell = document.createElement('td');
                 const lastModifiedCell = document.createElement('td');
 
-                nameCell.innerHTML = `<a href="/downloads/${file.name}" download>${file.name}</a>`;
+                if (file.path == "default"){
+                    nameCell.innerHTML = `<a href="/downloads/${file.name}" download>${file.name}</a>`;
+                } else {
+                    nameCell.innerHTML = `<a href="${file.path}" download>${file.name}</a>`;
+                }
+                
                 sizeCell.textContent = file.size;
                 lastModifiedCell.textContent = file.lastModified;
 
