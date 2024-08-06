@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.querySelector('table tbody');
 
-    fetch('/files.json') // 确保路径正确
+    fetch('https://kkskagvid.github.io/json/data.json') // 确保路径正确
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
