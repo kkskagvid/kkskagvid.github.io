@@ -1,98 +1,167 @@
-using Unity.VisualScripting;
-using UnityEditor;
+using Sprint.Util;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace Sprint.Player.CameraController
 {
-	[Header("Camera Follow")]
-	public Transform target; // The target to orbit around
-	public float distance = 5.0f; // Distance from the target
-	public float xSpeed = 1.0f; // Rotation speed around Y-axis
-	public float ySpeed = 1.0f; // Rotation speed around X-axis
-
-	[Header("Angle Limit")]
-	public float yMinLimit = -20f; // Minimum vertical angle
-	public float yMaxLimit = 80f; // Maximum vertical angle
-
-	[Header("Zoom")]
-	public float zoomSpeed = 5.0f; // Zoom speed
-	public float zoomMinDistance = 1.0f; // Minimum distance
-	public float zoomMaxDistance = 10.0f; // Maximum distance
-
-	[Header("Obstacle Detection")]
-	public float raycastDistance = 1.0f; // Distance for raycasting
-	public LayerMask obstacleLayer; // Layer mask for obstacles
-
-	private float rotationX = 0.0f;
-	private float rotationY = 0.0f;
-
-
-	void Start()
+	public class CameraController : MonoBehaviour
 	{
-		// Set initial rotation angles
-		rotationX = transform.localEulerAngles.x;
-		rotationY = transform.localEulerAngles.y;
+		[Header("Camera Follow")]
+		public Transform target;
+		public float distance = 3f;
+		public float followSmoothTime = 0.3f;
+		public float mouseSensitivity = 5f;
+		public float joystickSensitivity = 80f;
+		public float rotationSpeed = 90f;
 
-		// Lock the cursor and hide it
-		Cursor.lockState = CursorLockMode.Locked;
-	}
+		[Header("Angle Limit")]
+		public float minPitchAngle = -90f;
+		public float maxPitchAngle = 90f;
 
-	void Update()
-	{
-		if (Cursor.lockState == CursorLockMode.Locked)
+		[Header("Zoom")]
+		public float zoomSpeed = 2f;
+		public float zoomMinDistance = 2f;
+		public float zoomMaxDistance = 5f;
+
+		[Header("Obstacle Detection")]
+		public LayerMask obstructionMask;
+
+		private Camera regularCamera;
+		private Vector2 orbitAngles = new Vector2(45f, 0f);
+
+		private bool cameraAsisXInvert = false;
+		private bool cameraAsisYInvert = true;
+
+		void Start()
 		{
-			MouseInput();
-			Orbit();
-		}
-
-		CursorControl();
-	}
-
-	private void MouseInput()
-	{
-		// Get mouse delta
-		rotationX -= Input.GetAxis("Mouse Y") * (ySpeed * 100) * Time.deltaTime;
-		rotationY += Input.GetAxis("Mouse X") * (xSpeed * 100) * Time.deltaTime;
-
-		// Clamp the rotation angles
-		rotationX = Mathf.Clamp(rotationX, yMinLimit, yMaxLimit);
-		rotationY %= 360f;
-
-		// Zoom functionality
-		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		distance = Mathf.Clamp(distance - scroll * zoomSpeed, zoomMinDistance, zoomMaxDistance);
-	}
-
-	private void Orbit()
-	{
-		// Calculate the camera position based on the rotation angles
-		Vector3 pos = target.position + Quaternion.Euler(rotationX, rotationY, 0.0f) * Vector3.forward * distance;
-		transform.position = pos;
-
-		// Adjust the look-at point to be slightly higher
-		Vector3 adjustedTargetPosition = target.position + Vector3.up * 1f;
-		transform.LookAt(adjustedTargetPosition);
-
-		// Check for obstacles in front of the camera
-		//RaycastHit hit;
-		//if (Physics.Raycast(transform.position, transform.forward, out hit, raycastDistance, obstacleLayer))
-		//{
-		//	// If an obstacle is found, move the camera back
-		//	transform.position -= transform.forward * (hit.distance - 0.1f); // Adjust the offset as needed
-		//}
-	}
-
-	private void CursorControl()
-	{
-		if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
-		{
-			Cursor.lockState = CursorLockMode.Confined;
-		}
-		else
-		{
+			regularCamera = GetComponent<Camera>();
+			transform.localRotation = Quaternion.Euler(orbitAngles);
 			Cursor.lockState = CursorLockMode.Locked;
+
+			GameSettings.Load();
+			cameraAsisXInvert = GameSettings.CameraAsisXInvert;
+			cameraAsisYInvert = GameSettings.CameraAsisYInvert;
+		}
+
+		void LateUpdate()
+		{
+			if (CursorControl())
+			{
+				Quaternion lookRotation;
+				if (IsRotation())
+				{
+					ConstrainAngles();
+					lookRotation = Quaternion.Euler(orbitAngles);
+				}
+				else
+				{
+					lookRotation = transform.localRotation;
+				}
+
+				Zoom();
+
+				Vector3 lookDirection = lookRotation * Vector3.forward;
+				Vector3 lookPosition = target.position - lookDirection * distance;
+
+
+				Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
+				Vector3 rectPosition = lookPosition + rectOffset;
+				Vector3 castFrom = target.position;
+				Vector3 castLine = rectPosition - castFrom;
+				float castDistance = castLine.magnitude;
+				Vector3 castDirection = castLine / castDistance;
+
+				if (Physics.BoxCast(
+				castFrom, CameraHalfExtends(), castDirection, out RaycastHit hit,
+				lookRotation, castDistance, obstructionMask
+				))
+				{
+					rectPosition = castFrom + castDirection * hit.distance;
+					lookPosition = rectPosition - rectOffset;
+				}
+
+				transform.SetPositionAndRotation(lookPosition, lookRotation);
+			}
+		}
+
+		private bool IsRotation(float deadband = 0.001f)
+		{
+			float yaw = 
+				Input.GetAxis("Mouse X") +
+				Input.GetAxis("Camera Joystick X") * joystickSensitivity * Time.deltaTime;
+			
+			float pitch = 
+				Input.GetAxis("Mouse Y") +
+				Input.GetAxis("Camera Joystick Y") * joystickSensitivity * Time.deltaTime;
+
+			if (cameraAsisXInvert) { pitch = -pitch; }
+			if (cameraAsisYInvert) { yaw = -yaw; }
+
+			Vector2 input = new Vector2(pitch, yaw);
+
+			if (input.x < -deadband || input.x > deadband || input.y < -deadband || input.y > deadband)
+			{
+				orbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;
+				return true;
+			}
+
+			return false;
+		}
+
+		private void ConstrainAngles()
+		{
+			orbitAngles.x = Mathf.Clamp(orbitAngles.x, minPitchAngle, maxPitchAngle);
+
+			if (orbitAngles.y < 0f)
+			{
+				orbitAngles.y += 360f;
+			}
+
+			else if (orbitAngles.y >= 360f)
+			{
+				orbitAngles.y -= 360f;
+			}
+		}
+
+		private Vector3 CameraHalfExtends()
+		{
+			Vector3 halfExtends;
+			halfExtends.y =
+				regularCamera.nearClipPlane *
+				Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
+			halfExtends.x = halfExtends.y * regularCamera.aspect;
+			halfExtends.z = 0f;
+
+			return halfExtends;
+		}
+
+		private bool CursorControl()
+		{
+			if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+			{
+				Cursor.lockState = CursorLockMode.Confined;
+
+				return false;
+			}
+			else
+			{
+				int width = Screen.width;
+				int height = Screen.height;
+
+				width = width / 2;
+				height = height / 2;
+
+
+
+				Cursor.lockState = CursorLockMode.Locked;
+
+				return true;
+			}
+		}
+
+		private void Zoom()
+		{
+			float scroll = Input.GetAxis("Mouse ScrollWheel");
+			distance = Mathf.Clamp(distance - scroll * zoomSpeed, zoomMinDistance, zoomMaxDistance);
 		}
 	}
 }
-
-
