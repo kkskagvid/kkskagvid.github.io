@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.querySelector('table tbody');
 
-    fetch('https://kkskagvid.github.io/json/data.json') // 确保路径正确
+    fetch('https://kkskagvid.github.io/json/data.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error fetching or parsing files:', error);
-            // 可选：向用户显示错误消息
             alert('无法加载文件列表，请稍后再试。');
         });
 });

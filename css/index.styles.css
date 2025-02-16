@@ -1,67 +1,70 @@
+/* 设置整个页面的背景 */
+body::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/background/large_eva04_a.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('../img/background.jpg'); /* 添加背景图片 */
-    background-size: cover; /* 调整图片以覆盖整个背景 */
-    background-position: center center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 图片不重复 */
-    background-attachment: fixed; /* 图片固定在背景上 */
-    color: white; /* 设置文本颜色为白色 */
+    color: white;
+    background: rgba(255, 255, 255, 0);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header {
+.header-container {
+    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.7);
     color: white;
     display: flex;
-    justify-content: flex-end; /* 文字靠右对齐 */
+    justify-content: flex-end;
     align-items: center;
-    padding: 20px 50px; /* 添加内边距 */
-    position: relative; /* 使内部元素可以相对于header定位 */
+    padding: 20px 50px;
+    position: relative;
 }
 
-.header-nav ul {
+.header-container ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
-    display: flex; /* 使列表项水平排列 */
-    transform: translateX(-50%) translateY(15px); /* 向左移动中点的二分之一位置，并向下移动15px */
+    display: flex;
+    transform: translateX(-50%) translateY(0%)
 }
 
-.header-nav li {
-    margin-left: 10px; /* 增加列表项之间的空隙 */
+.header-container li {
+    margin-left: 10px;
 }
 
-.header-nav a {
-    color: white;
+.header-container a {
+    color: rgb(54, 54, 54);
     text-decoration: none;
     padding: 5px 20px;
     transition: background-color 0.3s ease;
 }
 
-.header-nav a:hover {
-    background-color: #555;
+.header-container a:hover {
+    background-color: #55555555;
 }
 
-main {
-    padding: 20px;
-    text-align: center;
+.main-container {
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    cursor: pointer;
-}
-
-footer {
-    background-color: #33333300;
+.footer-container {
     color: white;
     text-align: center;
     padding: 10px 0;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
 }
