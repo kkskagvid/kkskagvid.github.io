@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "zh-cn" }}">
-<!-- <html lang="zh-CN"> -->
-  <head>
-    <meta charset="UTF-8">
-{% seo %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
-    <link rel="stylesheet"  href="/assets/css/blog.css" type="text/css">
-  </head>
-  <body>
-    <a id="skip-to-content" href="#content">Skip to the content.</a>
+<html lang="{{ site.lang | default: " zh-cn" }}">
 
-    <header class="page-header" role="banner">
-      <h1 class="blog-title">{{ page.title | default: site.title }}</h1>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  {% seo %}
 
-    <main id="content" class="main-content" role="main">
-      {{ content }}
-    </main>
-    
-    <footer class="site-footer">
-        <span class="site-footer-credits">Copyright &copy; 2024 Kkskagvid. All Rights Reserved.</span>
-    </footer>
-  </body>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style"
+    type="text/css" crossorigin>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../assets/css/blog.css" type="text/css">
+</head>
+
+<body>
+  <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+  <header class="page-header" role="banner">
+    <h1 class="blog-title">{{ page.title | default: site.title }}</h1>
+  </header>
+
+  <main id="content" class="main-content" role="main">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <span class="site-footer-credits">Copyright &copy; 2025 Kkskagvid. All Rights Reserved.</span>
+  </footer>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> -->
+</body>
+
 </html>

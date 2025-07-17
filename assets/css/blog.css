@@ -1,6 +1,4 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -9,15 +7,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-p {
-  max-width: 1200px;
-  margin: 0 auto;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  hyphens: auto;
 }
 
 .page-header {
@@ -63,11 +52,20 @@ p {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+}
+
+.main-content p {
+  max-width: 1200px;
+  margin: 0 auto;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .site-footer {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   padding: 1.5rem;
   text-align: center;
 }
