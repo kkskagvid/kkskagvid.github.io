@@ -1,34 +1,112 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: " zh-cn" }}">
-
+<html lang="{{ site.lang | default: 'zh-cn' }}">
 <head>
   <meta charset="UTF-8">
-  {% seo %}
-
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style"
-    type="text/css" crossorigin>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="stylesheet" href="/assets/css/home.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }} | {{ page.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
 </head>
-
 <body>
-  <a id="skip-to-content" href="#content">Skip to the content.</a>
-  <aside class="sidebar">
-    <header class="page-header">
-      <a href="./">Home</a>
-    </header>
-    <footer class="site-footer">
-    <span class="site-footer-credits">Copyright &copy; 2025 Kkskagvid. All Rights Reserved.</span>
-  </footer>
-  </aside>
+  <div class="container">
+    <!-- 顶部导航 -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="{{ '/' | relative_url }}">首页</a></li>
+        <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
+        <li><a href="{{ '/about' | relative_url }}">关于</a></li>
+      </ul>
+      <div class="navbar-search">
+        <input type="text" id="searchInput" placeholder="搜索文章...">
+        <button id="searchButton">🔍</button>
+      </div>
+      <div class="navbar-toggle" id="navbarToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
 
-  <main id="content" class="main-content" role="main">
-    {{ content }}
-  </main>
+    <!-- 主要内容区 -->
+    <main class="content">
+      <div class="content-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="subtitle">{{ page.description }}</p>
+        {% endif %}
+      </div>
+      
+      <!-- 文章列表将在这里渲染 -->
+      {{ content }}
+    </main>
 
-  
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="author-info">
+          <div class="author-avatar">
+            <div class="avatar-placeholder">👤</div>
+          </div>
+          <h3>{{ site.author.name }}</h3>
+          <p>{{ site.author.bio }}</p>
+        </div>
+      </div>
+      
+      <div class="sidebar-card">
+        <h3>分类</h3>
+        <ul class="categories">
+          {% for category in site.categories %}
+          <li>
+            <a href="{{ '/category/' | append: category[0] | relative_url }}">
+              {{ category[0] }} ({{ category[1].size }})
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="sidebar-card">
+        <h3>标签云</h3>
+        <div class="tag-cloud">
+          {% for tag in site.tags %}
+          <a href="{{ '/tag/' | append: tag[0] | relative_url }}" class="tag">
+            {{ tag[0] }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="sidebar-card">
+        <h3>最新文章</h3>
+        <ul class="recent-posts">
+          {% for post in site.posts limit:5 %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">GitHub</a>
+          <a href="#">Twitter</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">RSS</a>
+        </div>
+        <p class="copyright">&copy; {{ 'now' | date: "%Y" }} {{ site.author.name }}. 保留所有权利。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
 </body>
-
 </html>
