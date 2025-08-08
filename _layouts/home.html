@@ -8,50 +8,18 @@
 </head>
 <body>
   <div class="container">
-    <!-- 顶部导航 -->
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
-      </div>
-      <ul class="navbar-links">
-        <li><a href="{{ '/' | relative_url }}">首页</a></li>
-        <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
-        <li><a href="{{ '/about' | relative_url }}">关于</a></li>
-      </ul>
-      <div class="navbar-search">
-        <input type="text" id="searchInput" placeholder="搜索文章...">
-        <button id="searchButton">🔍</button>
-      </div>
-      <div class="navbar-toggle" id="navbarToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </nav>
-
-    <!-- 主要内容区 -->
-    <main class="content">
-      <div class="content-header">
-        <h1>{{ page.title }}</h1>
-        {% if page.description %}
-        <p class="subtitle">{{ page.description }}</p>
-        {% endif %}
-      </div>
-      
-      <!-- 文章列表将在这里渲染 -->
-      {{ content }}
-    </main>
-
     <!-- 侧边栏 -->
     <aside class="sidebar">
       <div class="sidebar-card">
         <div class="author-info">
           <div class="author-avatar">
-            <div class="avatar-placeholder">👤</div>
+            <img src="https://github.com/{{ site.github_username }}.png" alt="{{ site.author.name }}">
           </div>
           <h3>{{ site.author.name }}</h3>
           <p>{{ site.author.bio }}</p>
+          <a href="https://github.com/{{ site.github_username }}" class="github-link" target="_blank">
+            GitHub主页
+          </a>
         </div>
       </div>
       
@@ -69,7 +37,7 @@
       </div>
       
       <div class="sidebar-card">
-        <h3>标签</h3>
+        <h3>标签云</h3>
         <div class="tag-cloud">
           {% for tag in site.tags %}
           <a href="{{ '/tag/' | append: tag[0] | relative_url }}" class="tag">
@@ -78,25 +46,43 @@
           {% endfor %}
         </div>
       </div>
-      
-      <div class="sidebar-card">
-        <h3>最新文章</h3>
-        <ul class="recent-posts">
-          {% for post in site.posts limit:5 %}
-          <li>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
     </aside>
+
+    <!-- 顶部导航 -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="{{ '/' | relative_url }}">首页</a></li>
+        <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
+        <li><a href="{{ '/about' | relative_url }}">关于</a></li>
+      </ul>
+      <div class="navbar-toggle" id="navbarToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main class="content">
+      <div class="content-header">
+        <h1>{{ page.title }}</h1>
+      </div>
+      
+      <!-- 文章列表将在这里渲染 -->
+      {{ content }}
+    </main>
 
     <!-- 页脚 -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-links">
-          <a href="https://github.com/kkskagvid">GitHub</a>
+          <a href="https://github.com/{{ site.github_username }}" target="_blank">
+            GitHub
+          </a>
         </div>
         <p class="copyright">Copyright &copy; 2025 Kkskagvid. All Rights Reserved.</p>
       </div>
