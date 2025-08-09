@@ -35,7 +35,7 @@
       </div>
       
       <div class="sidebar-card">
-        <h3>标签云</h3>
+        <h3>标签</h3>
         <div class="tag-cloud">
           {% for tag in site.tags %}
           <a href="{{ '/tag/' | append: tag[0] | relative_url }}" class="tag">
@@ -43,6 +43,18 @@
           </a>
           {% endfor %}
         </div>
+      </div>
+      
+      <div class="sidebar-card">
+        <h3>最新文章</h3>
+        <ul class="recent-posts">
+          {% for post in site.posts limit:5 %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
     </aside>
 
