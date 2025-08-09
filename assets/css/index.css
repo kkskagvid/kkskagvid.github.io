@@ -310,6 +310,39 @@
       color: white;
     }
 
+      .recent-posts {
+        list-style: none;
+      }
+      
+      .recent-posts li {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed var(--border-color);
+      }
+      
+      .recent-posts li:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      
+      .recent-posts a {
+        text-decoration: none;
+        color: var(--text-color);
+        transition: var(--transition);
+        display: block;
+        margin-bottom: 5px;
+      }
+      
+      .recent-posts a:hover {
+        color: var(--primary-color);
+      }
+      
+      .recent-posts span {
+        font-size: 0.8rem;
+        color: #666;
+      }
+
     /* 页脚样式 */
     .footer {
       grid-area: footer;
@@ -417,3 +450,4 @@
         gap: 8px;
       }
     }
+
