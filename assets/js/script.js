@@ -27,26 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // // 搜索功能
-  // const searchInput = document.getElementById('searchInput');
-  // const searchButton = document.getElementById('searchButton');
-  
-  // if (searchButton && searchInput) {
-  //   searchButton.addEventListener('click', performSearch);
-  //   searchInput.addEventListener('keypress', (e) => {
-  //     if (e.key === 'Enter') performSearch();
-  //   });
-  // }
-  
-  // function performSearch() {
-  //   const query = searchInput.value.trim();
-  //   if (query) {
-  //     alert(`搜索功能演示: 搜索关键词 "${query}"`);
-  //     // 实际实现中这里应该跳转到搜索结果页
-  //     // window.location.href = `/search?q=${encodeURIComponent(query)}`;
-  //   }
-  // }
-  
   // 为所有文章链接添加点击动画
   const postLinks = document.querySelectorAll('.post-title a');
   postLinks.forEach(link => {
