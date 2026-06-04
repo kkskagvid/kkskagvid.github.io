@@ -47,6 +47,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 15px;
+    justify-items: center;
 }
 
 /* 导航栏样式 */
@@ -105,7 +106,6 @@ body {
     grid-area: content;
     max-width: 800px;
     width: 100%;
-    justify-self: center;
     padding: 0 20px 30px;
 }
 
