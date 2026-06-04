@@ -8,35 +8,47 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
 </head>
 <body>
-  <a id="skip-to-content" href="#content">Skip to the content.</a>
+  <div class="container">
+    <!-- 顶部导航 -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="{{ '/' | relative_url }}">首页</a></li>
+        <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
+        <li><a href="{{ '/about' | relative_url }}">关于</a></li>
+      </ul>
+      <div class="navbar-toggle" id="navbarToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
 
-  <nav class="navbar">
-    <div class="navbar-brand">
-      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      <button class="theme-toggle" id="themeToggle">🌙</button>
-    </div>
-    <ul class="navbar-links">
-      <li><a href="{{ '/' | relative_url }}">首页</a></li>
-      <li><a href="{{ '/archive' | relative_url }}">归档</a></li>
-      <li><a href="{{ '/about' | relative_url }}">关于</a></li>
-    </ul>
-    <div class="navbar-toggle" id="navbarToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </nav>
+    <!-- 主要内容区 -->
+    <main class="content">
+      <div class="content-header">
+        <h1>{{ page.title }}</h1>
+      </div>
+      
+      <!-- 文章列表将在这里渲染 -->
+      {{ content }}
+    </main>
 
-  <main id="content" class="main-content" role="main">
-    <h1 class="blog-title">{{ page.title | default: site.title }}</h1>
-    {{ content }}
-  </main>
-
-  <footer class="site-footer">
-    <span class="site-footer-credits">Copyright &copy; 2025 Kkskagvid. All Rights Reserved.</span>
-  </footer>
-
-  <!-- <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script> -->
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="https://github.com/{{ site.github_username }}" target="_blank">
+            GitHub
+          </a>
+        </div>
+        <p class="copyright">Copyright &copy; 2025 Kkskagvid. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+  
 </body>
 </html>
