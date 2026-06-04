@@ -103,6 +103,9 @@ body {
 /* 主要内容区 */
 .content {
     grid-area: content;
+    max-width: 800px;
+    width: 100%;
+    justify-self: center;
     padding: 0 20px 30px;
 }
 
