@@ -53,6 +53,7 @@ body {
 /* 导航栏样式 */
 .navbar {
     grid-area: navbar;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,6 +88,7 @@ body {
     display: flex;
     list-style: none;
     gap: 25px;
+    margin-left: auto;
 }
 
 .navbar-links a {
@@ -104,8 +106,7 @@ body {
 /* 主要内容区 */
 .content {
     grid-area: content;
-    max-width: 800px;
-    width: 100%;
+    width: 80%;
     padding: 0 20px 30px;
 }
 
@@ -123,6 +124,7 @@ body {
 /* 页脚样式 */
 .footer {
     grid-area: footer;
+    width: 80%;
     padding: 30px 0;
     border-top: 1px solid var(--border-color);
     margin-top: 30px;
