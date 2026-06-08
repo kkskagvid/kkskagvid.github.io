@@ -1,5 +1,6 @@
 ---
 layout: index
+title: Index
 ---
 
 <ul class="post-list">
